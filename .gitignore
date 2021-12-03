@@ -9,5 +9,5 @@
 
 # (Momentarly) useless things a.k.a bloat
 /.idea
-/.out
-/.AdventOfCode2021.iml
+/out
+/AdventOfCode2021.iml

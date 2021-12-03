@@ -20,4 +20,17 @@ public class Measurements {
         }
         return nrOfIncreasing;
     }
+
+    public Integer getNrOfAccurateIncreasing(List<String> input) {
+        int previous = Integer.parseInt(input.get(0)) + Integer.parseInt(input.get(1)) + Integer.parseInt(input.get(2));
+        for (int i = 3; i < input.size(); i++) {
+            int current = previous - Integer.parseInt(input.get(i - 3)) + Integer.parseInt(input.get(i));
+            if (previous < current) {
+                nrOfIncreasing++;
+            }
+            previous = current;
+        }
+        return nrOfIncreasing;
+
+    }
 }

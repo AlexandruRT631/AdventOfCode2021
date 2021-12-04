@@ -2,6 +2,7 @@ package adventofcode2021;
 
 public class BingoBoard {
     private BingoBoardSpace[][] board = new BingoBoardSpace[5][5];
+    boolean win = false;
 
     public BingoBoard() {
         for (int i = 0; i < 5; i++) {
@@ -45,5 +46,25 @@ public class BingoBoard {
 
     public String getValue(int row, int col) {
         return board[row][col].getValue();
+    }
+
+    public boolean isWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
+    }
+
+    public void printBingoScore(String drawnNumber) {
+        int sum = 0;
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 5; col++) {
+                if (!board[row][col].isFound()) {
+                    sum = sum + Integer.parseInt(board[row][col].getValue());
+                }
+            }
+        }
+        System.out.println(sum * Integer.parseInt(drawnNumber));
     }
 }

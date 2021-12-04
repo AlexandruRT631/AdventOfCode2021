@@ -15,15 +15,7 @@ public class D4P1 implements PuzzleBasics {
                 board.pinValue(drawnNumber);
                 for (int i = 0; i < 5; i++) {
                     if (board.checkTrueCol(i) || board.checkTrueRow(i)) {
-                        int sum = 0;
-                        for (int row = 0; row < 5; row++) {
-                            for (int col = 0; col < 5; col++) {
-                                if (!board.isFound(row, col)) {
-                                    sum = sum + Integer.parseInt(board.getValue(row, col));
-                                }
-                            }
-                        }
-                        System.out.println(sum * Integer.parseInt(drawnNumber));
+                        board.printBingoScore(drawnNumber);
                         return;
                     }
                 }

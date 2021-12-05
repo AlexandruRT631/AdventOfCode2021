@@ -26,7 +26,7 @@ public class Reader {
         Path levelFile = Path.of(filename);
         List<String> lines = Files.readAllLines(levelFile);
         List<BingoBoard> bingoBoards = new ArrayList<BingoBoard>();
-        for (int i = 2; i < lines.size(); i+=6) {
+        for (int i = 2; i < lines.size(); i += 6) {
             BingoBoard board = new BingoBoard();
             for (int j = 0; j < 5; j++) {
                 board.setBingoBoardRow(lines.get(i + j), j);
@@ -34,5 +34,17 @@ public class Reader {
             bingoBoards.add(board);
         }
         return bingoBoards;
+    }
+
+    public List<LineCoordinates> readCoordinates(String filename) throws IOException {
+        Path levelFile = Path.of(filename);
+        List<String> lines = Files.readAllLines(levelFile);
+        List<LineCoordinates> lineCoordinates = new ArrayList<>();
+        for (String line : lines) {
+            int[] coordinates = Arrays.stream(line.replaceAll("[^0-9,]", ",").split(",+")).mapToInt(Integer::parseInt).toArray();
+            LineCoordinates coordinates1 = new LineCoordinates(coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
+            lineCoordinates.add(coordinates1);
+        }
+        return lineCoordinates;
     }
 }

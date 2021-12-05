@@ -3,7 +3,7 @@ package adventofcode2021;
 import java.io.IOException;
 import java.util.List;
 
-public class D5P1 implements PuzzleBasics {
+public class D5P2 implements PuzzleBasics {
     private int xMax(List<LineCoordinates> lineCoordinates) {
         int xMax = 0;
         for (LineCoordinates coordinates : lineCoordinates) {
@@ -31,6 +31,8 @@ public class D5P1 implements PuzzleBasics {
                 diagram.addHorizontalLine(coordinates);
             } else if (coordinates.getyStart() == coordinates.getyEnd()) {
                 diagram.addVerticalLine(coordinates);
+            } else {
+                diagram.addDiagonalLine(coordinates);
             }
         }
 

@@ -1,5 +1,7 @@
 package adventofcode2021;
 
+import static java.lang.Math.abs;
+
 public class Diagram {
     int[][] diagram;
     int x;
@@ -26,6 +28,19 @@ public class Diagram {
         int y = coordinates.getyStart();
         for (; xStart <= xEnd; xStart++) {
             diagram[xStart][y]++;
+        }
+    }
+
+    public void addDiagonalLine (LineCoordinates coordinates) {
+        int xStart = coordinates.getxStart();
+        int xEnd = coordinates.getxEnd();
+        int yStart = coordinates.getyStart();
+        int yEnd = coordinates.getyEnd();
+        int dirx = xStart < xEnd? 1 : -1;
+        int diry = yStart < yEnd? 1 : -1;
+
+        for (int i = 0; i < abs(xStart - xEnd) + 1; i++) {
+            diagram[xStart + i * dirx][yStart + i * diry]++;
         }
     }
 

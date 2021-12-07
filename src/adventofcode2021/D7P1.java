@@ -12,8 +12,13 @@ public class D7P1 implements PuzzleBasics {
         String line = reader.readFromInput("resources/day7.txt").get(0);
         int[] positions = Arrays.stream(line.split(",")).mapToInt(Integer::parseInt).toArray();
         Arrays.sort(positions);
-        int median = positions[positions.length / 2];
-        median = positions.length % 2 == 1? (median + positions[positions.length / 2 + 1]) / 2 : median;
+        int median;
+        if (positions.length % 2 == 1) {
+            median = positions[positions.length / 2 - 1];
+        }
+        else {
+            median = (positions[positions.length / 2] + positions[positions.length / 2 - 1]) / 2;
+        }
         int fuel = 0;
         for (int position : positions) {
             fuel = fuel + abs(position - median);

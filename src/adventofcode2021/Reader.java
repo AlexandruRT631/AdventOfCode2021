@@ -60,4 +60,17 @@ public class Reader {
         }
         return map;
     }
+
+    public MapCoordinate[][] readMapCoordinate(String filename) throws IOException {
+        Path levelFile = Path.of(filename);
+        List<String> lines = Files.readAllLines(levelFile);
+        MapCoordinate[][] map = new MapCoordinate[lines.size()][lines.get(0).length()];
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            for (int j = 0; j < line.length(); j++) {
+                map[i][j] = new MapCoordinate(line.charAt(j) - '0');
+            }
+        }
+        return map;
+    }
 }

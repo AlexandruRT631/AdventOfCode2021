@@ -1,18 +1,17 @@
 package adventofcode2021;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
-public class D10P1 implements PuzzleBasics {
+public class D10P2 implements PuzzleBasics {
     @Override
     public void run() throws IOException {
         Reader reader = new Reader();
         List<String> lines = reader.readFromInput("resources/day10.txt");
 
-        int errorPoints = 0;
+        List<Long> scores = new ArrayList<>();
         for (String line : lines) {
-            Stack<String> parenthesisStack = new Stack<>();
+            Stack<String> parenthesisStack = new Stack<String>();
             boolean ok = true;
             for (int i = 0; i < line.length() && ok; i++) {
                 String parenthesis = String.valueOf(line.charAt(i));
@@ -25,17 +24,27 @@ public class D10P1 implements PuzzleBasics {
                             (aux.equals("[") && !parenthesis.equals("]")) ||
                             (aux.equals("{") && !parenthesis.equals("}")) ||
                             (aux.equals("<") && !parenthesis.equals(">"))) {
-                        switch (parenthesis) {
-                            case ")" -> errorPoints = errorPoints + 3;
-                            case "]" -> errorPoints = errorPoints + 57;
-                            case "}" -> errorPoints = errorPoints + 1197;
-                            case ">" -> errorPoints = errorPoints + 25137;
-                        }
                         ok = false;
                     }
                 }
             }
+            if (ok) {
+                long score = 0;
+                while (!parenthesisStack.isEmpty()) {
+                    String parenthesis = parenthesisStack.pop();
+                    score = score * 5;
+                    score = switch (parenthesis) {
+                        case "(" -> score + 1;
+                        case "[" -> score + 2;
+                        case "{" -> score + 3;
+                        case "<" -> score + 4;
+                        default -> score;
+                    };
+                }
+                scores.add(score);
+            }
         }
-        System.out.println(errorPoints);
+        Collections.sort(scores);
+        System.out.println(scores.get(scores.size() / 2));
     }
 }

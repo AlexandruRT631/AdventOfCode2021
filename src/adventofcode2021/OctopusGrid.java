@@ -73,4 +73,15 @@ public class OctopusGrid {
         }
         return nrOfFlashes;
     }
+
+    public boolean allFlash() {
+        for (int[] line : map) {
+            for (int octopus : line) {
+                if (octopus != 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

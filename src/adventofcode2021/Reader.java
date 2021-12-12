@@ -73,4 +73,15 @@ public class Reader {
         }
         return map;
     }
+
+    public List<Paths> readEdges(String filename) throws IOException {
+        Path levelFile = Path.of(filename);
+        List<String> lines = Files.readAllLines(levelFile);
+        List<Paths> paths = new ArrayList<>();
+        for (String line : lines) {
+            String[] node = line.split("-");
+            paths.add(new Paths(node[0], node[1]));
+        }
+        return paths;
+    }
 }

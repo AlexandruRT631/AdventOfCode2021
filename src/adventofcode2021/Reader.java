@@ -84,4 +84,48 @@ public class Reader {
         }
         return paths;
     }
+
+    public boolean[][] readPaper(String filename) throws IOException {
+        Path levelFile = Path.of(filename);
+        List<String> lines = Files.readAllLines(levelFile);
+        int xMax = 0;
+        int yMax = 0;
+        for (int i = 0; i < lines.size() && !lines.get(i).equals(""); i++) {
+            String[] coordinates = lines.get(i).split(",");
+            if (Integer.parseInt(coordinates[1]) > xMax) {
+                xMax = Integer.parseInt(coordinates[1]);
+            }
+            if (Integer.parseInt(coordinates[0]) > yMax) {
+                yMax = Integer.parseInt(coordinates[0]);
+            }
+        }
+        xMax++;
+        yMax++;
+        boolean[][] paper = new boolean[xMax][yMax];
+        for (int i = 0; i < lines.size() && !lines.get(i).equals(""); i++) {
+            String[] coordinates = lines.get(i).split(",");
+            paper[Integer.parseInt(coordinates[1])][Integer.parseInt(coordinates[0])] = true;
+        }
+        return paper;
+    }
+
+    public List<Fold> readFoldings(String filename) throws IOException {
+        List<Fold> folds = new ArrayList<>();
+        Path levelFile = Path.of(filename);
+        List<String> lines = Files.readAllLines(levelFile);
+        int i = 0;
+        while (!lines.get(i).equals("")) {
+            i++;
+        }
+        i++;
+        while (i < lines.size()) {
+            String[] importantValues = lines.get(i).split(" ")[2].split("=");
+            int axis = Integer.parseInt(importantValues[1]);
+            boolean vertical = importantValues[0].equals("x");
+            Fold fold = new Fold(axis, vertical);
+            folds.add(fold);
+            i++;
+        }
+        return folds;
+    }
 }

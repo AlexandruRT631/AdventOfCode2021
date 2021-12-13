@@ -13,16 +13,20 @@ public class Paper {
         if (fold.isVertical()) {
             newPaper = new boolean[paper.length][axis];
             for (int i = 0; i < paper.length; i++) {
-                for (int j = 0; j < axis; j++) {
-                    newPaper[i][j] = paper[i][j] || paper[i][paper[0].length - 1 - j];
+                for (int j = 1; j <= axis; j++) {
+                    if (axis + j < paper[0].length) {
+                        newPaper[i][axis - j] = paper[i][axis - j] || paper[i][axis + j];
+                    }
                 }
             }
         }
         else {
             newPaper = new boolean[axis][paper[0].length];
-            for (int i = 0; i < axis; i++) {
+            for (int i = 1; i <= axis; i++) {
                 for (int j = 0; j < paper[0].length; j++) {
-                    newPaper[i][j] = paper[i][j] || paper[paper.length - 1 - i][j];
+                    if (axis + i < paper.length) {
+                        newPaper[axis - i][j] = paper[axis - i][j] || paper[axis + i][j];
+                    }
                 }
             }
         }
@@ -39,5 +43,17 @@ public class Paper {
             }
         }
         return nrOfDots;
+    }
+
+    public void printPaper() {
+        for (boolean[] line : paper) {
+            for (boolean dot : line) {
+                if (dot) {
+                    System.out.print("#");
+                }
+                else System.out.print(".");
+            }
+            System.out.println();
+        }
     }
 }

@@ -4,7 +4,7 @@ public class Polymer {
     private char startLetter;
     private char endLetter;
     private char[] hashMap;
-    private int[] hashFreq = new int[675];
+    private long[] hashFreq = new long[675];
 
     private int getHashValue(String hash) {
         return (hash.charAt(0) - 'A') * 26 + hash.charAt(1) - 'A';
@@ -35,7 +35,7 @@ public class Polymer {
     }
 
     public void nextStep() {
-        int[] oldHashFreq = new int[675];
+        long[] oldHashFreq = new long[675];
         System.arraycopy(hashFreq, 0, oldHashFreq, 0, 675);
         for (int i = 0; i < 675; i++) {
             if (oldHashFreq[i] > 0) {
@@ -53,9 +53,9 @@ public class Polymer {
         }
     }
 
-    public int difMcLcElem() {
-        int[] element = new int[26];
-        int min = 0, max = 0;
+    public long difMcLcElem() {
+        long[] element = new long[26];
+        long min = 0, max = 0;
         for (int i = 0; i < 675; i++) {
             if (hashFreq[i] > 0) {
                 String hash = getHash(i);

@@ -128,4 +128,21 @@ public class Reader {
         }
         return folds;
     }
+
+    public String readFirstLine(String filename) throws IOException {
+        Path levelFile = Path.of(filename);
+        List<String> lines = Files.readAllLines(levelFile);
+        return lines.get(0);
+    }
+
+    public char[] readHashMap(String filename) throws IOException {
+        Path levelFile = Path.of(filename);
+        List<String> lines = Files.readAllLines(levelFile);
+        char[] hashMap = new char[675];
+        for (int i = 2; i < lines.size(); i++) {
+            String[] values = lines.get(i).split(" -> ");
+            hashMap[(values[0].charAt(0) - 'A') * 26 + values[0].charAt(1) - 'A'] = values[1].charAt(0);
+        }
+        return hashMap;
+    }
 }

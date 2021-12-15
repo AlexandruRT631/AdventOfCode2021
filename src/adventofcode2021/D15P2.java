@@ -3,7 +3,7 @@ package adventofcode2021;
 import java.io.IOException;
 import java.util.PriorityQueue;
 
-public class D15P1 implements PuzzleBasics {
+public class D15P2 implements PuzzleBasics {
     public int[] dx = {-1, 0, 1, 0};
     public int[] dy = {0, 1, 0, -1};
 
@@ -42,7 +42,33 @@ public class D15P1 implements PuzzleBasics {
     @Override
     public void run() throws IOException {
         Reader reader = new Reader();
-        int[][] map = reader.readMap("resources/day15.txt");
+        int[][] smallMap = reader.readMap("resources/day15.txt");
+        int[][] map = new int[smallMap[0].length * 5][smallMap.length * 5];
+        for (int i = 0; i < smallMap[0].length; i++) {
+            System.arraycopy(smallMap[i], 0, map[i], 0, smallMap.length);
+        }
+        for (int i = 0; i < smallMap[0].length; i++) {
+            for (int j = smallMap.length; j < map.length; j++) {
+                map[i][j] = map[i][j - smallMap.length] + 1;
+                if (map[i][j] == 10) {
+                    map[i][j] = 1;
+                }
+            }
+        }
+        for (int i = smallMap[0].length; i < map[0].length; i++) {
+            for (int j = 0; j < smallMap.length; j++) {
+                map[i][j] = map[i - smallMap[0].length][j] + 1;
+                if (map[i][j] == 10) {
+                    map[i][j] = 1;
+                }
+            }
+            for (int j = smallMap.length; j < map.length; j++) {
+                map[i][j] = map[i][j - smallMap.length] + 1;
+                if (map[i][j] == 10) {
+                    map[i][j] = 1;
+                }
+            }
+        }
         System.out.println(Math.min(minRisk(map, 0, 1), minRisk(map, 1, 0)));
     }
 }

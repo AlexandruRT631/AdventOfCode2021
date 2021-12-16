@@ -4,6 +4,6 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] argv) throws IOException {
-        new D15P2().run();
+        new D16P1().run();
     }
 }

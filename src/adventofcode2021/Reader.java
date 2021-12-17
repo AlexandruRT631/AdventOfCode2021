@@ -145,4 +145,15 @@ public class Reader {
         }
         return hashMap;
     }
+
+    public int[] readTargetArea(String filename) throws IOException {
+        Path levelFile = Path.of(filename);
+        String line = Files.readString(levelFile);
+        String[] values = line.replaceAll("[^0-9,^-]", ",").substring(15).split(",+");
+        int[] output = new int[4];
+        for (int i = 0; i < 4; i++) {
+            output[i] = Integer.parseInt(values[i]);
+        }
+        return output;
+    }
 }

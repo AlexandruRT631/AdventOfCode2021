@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class Reader {
     public List<String> readFromInput(String filename) throws IOException {
@@ -155,5 +156,29 @@ public class Reader {
             output[i] = Integer.parseInt(values[i]);
         }
         return output;
+    }
+
+    public List<Pair> readPairs(String filename) throws IOException {
+        Path levelFile = Path.of(filename);
+        List<String> lines = Files.readAllLines(levelFile);
+        List<Pair> pairs = new ArrayList<>();
+        for (String line : lines) {
+            Stack<Object> pairStack = new Stack<>();
+            for (int i = 0; i < line.length(); i++) {
+                if (line.charAt(i) >= '0' && line.charAt(i) <= '9') {
+                    Integer number = Integer.parseInt(String.valueOf(line.charAt(i)));
+                    pairStack.push(number);
+                }
+                else if (line.charAt(i) == ']') {
+                    Object right = pairStack.pop();
+                    Object left = pairStack.pop();
+                    Pair pair = new Pair(left, right);
+                    pairStack.push(pair);
+                }
+            }
+            Pair pair = (Pair) pairStack.pop();
+            pairs.add(pair);
+        }
+        return pairs;
     }
 }
